@@ -1,7 +1,9 @@
 package org.generation.italy.service;
 
 
+
 import java.util.List;
+
 
 //import org.generation.italy.model.Ingrediente;
 import org.generation.italy.model.Pizza;
@@ -21,7 +23,12 @@ public class PizzaService {
 	
 	public List<Pizza> findAllSortedByName(){
 		return repository.findAll(Sort.by("name"));
-	} //wip
+	} 
+	
+	public Pizza save(Pizza pizza) {
+		//pizza.setCreatedAt(LocalDateTime.now());
+		return repository.save(pizza);
+	}
 	
 
 }
