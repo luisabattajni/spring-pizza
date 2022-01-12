@@ -11,7 +11,7 @@
 		<h1>Pizza</h1>
 		<hr />
 		<form id="pizza-form" th:object="${pizza}"
-			th:action=th:action="${edit} ? @{/pizze/add/{id}(id=${pizza.id})} : @{/pizze/create}" method="post">
+			th:action=th:action="${add} ? @{/pizze/add/{id}(id=${pizza.id})} : @{/pizze/create}" method="post">
 			<ul>
 				<li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger"></li>
 			</ul>
@@ -35,28 +35,28 @@
 								<label class="form-label" for="price">Prezzo</label>
 								<input type="text" class="form-control" id="price" th:field="*{price}"
 									th:errorClass="is-invalid">
-								<div th:if="${#fields.hasErrors('title')}" class="invalid-feedback">
+								<div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
 									<ul>
-										<li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+										<li th:each="err : ${#fields.errors('price')}" th:text="${err}"></li>
 									</ul>
 								</div>
 
 								<div class="col-12">
 									<button class="btn btn-primary" type="submit"><i class="fas fa-check"></i>
 										Salva</button>
-									<a class="btn btn-primary" th:href="@{/books}"><i class="fas fa-times"></i>
+									<a class="btn btn-primary" th:href="@{/pizze}"><i class="fas fa-times"></i>
 										Cancella</a>
 								</div>
 							</div>
 						</div>
 						<!-- ingredienti -->
 						<div class="col-4">
-							<h4>Categories</h4>
+							<h4>Ingredienti</h4>
 							<div class="form-check" th:each="ingredienti : ${ingredienteList}">
-								<input class="form-check-input" type="checkbox" th:id="|ingrediente_${ingredienti.id}|"
-									th:value="${ingredienti.id}" th:field="*{ingredienti}">
-								<label class="form-check-label" th:for="|ingrediente_${ingredienti.id}|"
-									th:text="${ingredienti.name}"></label> <!-- name? -->
+								<input class="form-check-input" type="checkbox" th:id="|ingrediente_${ingrediente.id}|"
+									th:value="${ingrediente.id}" th:field="*{ingredienti}">
+								<label class="form-check-label" th:for="|ingrediente_${ingrediente.id}|"
+									th:text="${ingrediente.name}"></label> <!-- name? -->
 							</div>
 						</div>
 		</form>
