@@ -49,7 +49,7 @@ public class PizzaController {
 	//edit - add?
 	@GetMapping("/create")
 	public String create(Model model) {
-		model.addAttribute("add", false);
+		model.addAttribute("edit", false);
 		model.addAttribute("pizza", new Pizza());
 		model.addAttribute("ingredienteList", ingredienteService.findAllSortByName());
 		return "/pizze/add";
@@ -62,7 +62,7 @@ public class PizzaController {
 		// se ci sono errori torni alla form
 		//attenzione all'html che ho chiamato add
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("add", false);
+			model.addAttribute("edit", false);
 			model.addAttribute("ingredienteList", ingredienteService.findAllSortByName());
 			return "/pizze/add";
 		}
@@ -71,7 +71,7 @@ public class PizzaController {
 		return "redirect:/pizze";
 	}
 	
-	@GetMapping("/add/{id}")
+	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("edit", true);
 		model.addAttribute("pizza", service.getById(id));
@@ -79,7 +79,7 @@ public class PizzaController {
 		return "/pizze/add";
 	}
 	
-	@PostMapping("/add/{id}")
+	@PostMapping("/edit/{id}")
 	public String doUpdate(@Valid @ModelAttribute("book") Pizza formPizza, 
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		if(bindingResult.hasErrors()) {

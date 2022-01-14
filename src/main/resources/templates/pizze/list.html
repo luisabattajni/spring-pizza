@@ -5,11 +5,17 @@
 		<title>Pizze</title>
 	</head>
 	<body>
-				<div class="container">
+		<div class="container">
+
 			<h1>Pizze</h1>
 			<hr/>
 			<div class="mb-3">
 				<a class="btn btn-primary" th:href="@{/pizze/create}">Aggiungi una pizza</a>
+			</div>
+			<!-- take out if i can't make it work//optional searchbar-->
+			<div class="input-group">
+				<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Search" aria-label="Search">
+			    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
 			</div>
 			<table class="table" th:if="${list.size() > 0}">
 				<thead>
