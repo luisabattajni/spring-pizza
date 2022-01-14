@@ -17,6 +17,7 @@
 						<th>Nome</th>
 						<th>Descrizione</th>
 						<th>Prezzo</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -24,6 +25,11 @@
 						<td th:text="${item.name}"></td>
 						<td th:text="${item.synopsis}"></td>
 						<td th:text="${item.price}"></td>
+						<td>
+							<a class="btn btn-primary" th:href="@{|/pizze/edit/${item.id}|}"><i class="fas fa-edit"></i></a>
+							<a class="btn btn-primary" th:href="@{|/pizze/delete/${item.id}|}"><i class="fas fa-trash"></i></a>						
+						
+						</td>
 					</tr>
 				</tbody>
 			</table>

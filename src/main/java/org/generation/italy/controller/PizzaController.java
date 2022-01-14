@@ -15,11 +15,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 //import org.springframework.web.bind.annotation.ModelAttribute;
 //import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/pizze")
@@ -69,6 +71,36 @@ public class PizzaController {
 		return "redirect:/pizze";
 	}
 	
+	@GetMapping("/add/{id}")
+	public String edit(@PathVariable("id") Integer id, Model model) {
+		model.addAttribute("edit", true);
+		model.addAttribute("pizza", service.getById(id));
+		model.addAttribute("ingredienteList", ingredienteService.findAllSortByName());
+		return "/pizze/add";
+	}
+	
+	@PostMapping("/add/{id}")
+	public String doUpdate(@Valid @ModelAttribute("book") Pizza formPizza, 
+			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+		if(bindingResult.hasErrors()) {
+			model.addAttribute("edit", true);
+			model.addAttribute("ingredienteList", ingredienteService.findAllSortByName());
+			return "/pizze/add";
+		}
+		service.update(formPizza);
+		redirectAttributes.addFlashAttribute("successMessage", "Pizza edited!");
+		return "redirect:/pizze";
+	}
+	
+	@GetMapping("/delete/{id}")
+	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+		if(service.getById(id) == null) {
+			// ritorno error message
+		}
+		service.deleteById(id);
+		redirectAttributes.addFlashAttribute("successMessage", "Pizza deleted!");
+		return "redirect:/pizze";
+	}
 
 
 }
