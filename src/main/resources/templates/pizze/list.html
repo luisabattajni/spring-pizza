@@ -9,9 +9,6 @@
 
 			<h1>Pizze</h1>
 			<hr/>
-			<div class="mb-3">
-				<a class="btn btn-primary" th:href="@{/pizze/create}">Aggiungi una pizza</a>
-			</div>
 			<!-- take out if i can't make it work//optional searchbar-->
 			<div class="input-group">
 				<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -33,15 +30,17 @@
 						<td th:text="${item.price}"></td>
 						<td>
 							<a class="btn btn-primary" th:href="@{|/pizze/edit/${item.id}|}"><i class="fas fa-edit"></i></a>
-							<a class="btn btn-primary" th:href="@{|/pizze/delete/${item.id}|}"><i class="fas fa-trash"></i></a>						
+							<a class="btn btn-primary" th:href="@{|/pizze/delete/${item.id}|}" onclick="return confirm('Vuoi davvero eliminare questa pizza?')"><i class="fas fa-trash"></i> </a>						
 						
 						</td>
 					</tr>
 				</tbody>
 			</table>
-			
 			<div class="alert alert-warning" role="alert" th:unless="${list.size() > 0}">
 			  Non abbiamo pizze
+			</div>
+			<div class="mb-3">
+				<a class="btn btn-primary" th:href="@{/pizze/create}"><i class="fas fa-plus"></i> Aggiungi una pizza</a>
 			</div>
 		</div>
 		<div th:replace="fragments/resources :: scripts"></div>
