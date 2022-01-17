@@ -25,7 +25,7 @@ public class PizzaService {
 		return repository.findAll(Sort.by("name"));
 	} 
 	
-	public List<Pizza> findByKeywordSortedByName(String keyword){
+	public List<Pizza> findByKeyword(String keyword){
 		return repository.findByNameContainingIgnoreCaseOrderByName(keyword);
 	}
 	

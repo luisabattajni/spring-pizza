@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<div th:replace="fragments/resources :: headTags"></div>
+	<title>Personalizza ingredienti</title>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Personalizza ingredienti</h1>
+		<hr />
+		<form id="ingrediente-form" th:object="${ingrediente}"
+			th:action="${edit} ? @{/ingrediente/edit/{id}(id=${ingrediente.id})} : @{/pizze/create}" method="post">
+			<ul>
+				<li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger"></li>
+			</ul>
+			<div class="row">
+				<div class="col-8">
+					<div class="row gy-2">
+						<div class="col-12">
+							<label class="form-label" for="name">Nome</label>
+							<input type="text" class="form-control" id="name" th:field="*{name}"
+								th:errorClass="is-invalid">
+							<div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+								<ul>
+									<li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+								</ul>
+							</div>
+
+							<div class="col-12">
+								
+
+								<div class="col-12">
+									<button class="btn btn-primary" type="submit"><i class="fas fa-check"></i>
+										Salva</button>
+									<a class="btn btn-primary" th:href="@{/ingredienti}"><i class="fas fa-times"></i>
+										Cancella</a>
+								</div>
+							</div>
+						</div>
+				<hr />
+
+
+					</div>
+				</div>
+		</form>
+		</div>
+	</div>
+
+	<div th:replace="fragments/resources :: scripts"></div>
+</body>
+
+</html>

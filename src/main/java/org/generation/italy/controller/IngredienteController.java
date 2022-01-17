@@ -1,14 +1,12 @@
 package org.generation.italy.controller;
 
-
-
 import java.util.List;
 
 import javax.validation.Valid;
 
+import org.generation.italy.model.Ingrediente;
 import org.generation.italy.model.Pizza;
 import org.generation.italy.service.IngredienteService;
-import org.generation.italy.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,90 +15,85 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/pizze")
-public class PizzaController {
-	
-	@Autowired
-	private PizzaService service;
+@RequestMapping("/ingredienti")
+
+public class IngredienteController {
 	
 	@Autowired
 	private IngredienteService ingredienteService;
 	
+	
 	@GetMapping
 	public String list(Model model, @RequestParam(name="keyword", required=false) String keyword) {
-		List<Pizza> result;
+		List<Ingrediente> result;
 		if(keyword != null && !keyword.isEmpty()) {
-			result = service.findByKeyword(keyword);
+			result = ingredienteService.findByKeyword(keyword);
 			model.addAttribute("keyword", keyword);
 		} else {
-			result = service.findAllSortedByName();
+			result = ingredienteService.findAllSortedByName();
 		}
-		model.addAttribute("list", result);
-		return "/pizze/list";
+		model.addAttribute("list2", result);
+		return "/ingredienti/list2";
 	}
 	
 	//edit - add?
 	@GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("edit", false);
-		model.addAttribute("pizza", new Pizza());
+		model.addAttribute("ingrediente", new Ingrediente());
 		model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());
-		return "/pizze/add";
+		return "/ingredienti/edit";
 	}
 
 	
 	@PostMapping("/create")
-	public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+	public String doCreate(@Valid @ModelAttribute("ingrediente") Ingrediente formIngrediente, BindingResult bindingResult, Model model) {
 
-		// se ci sono errori torni alla form
-		//attenzione all'html che ho chiamato add
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("edit", false);
-			model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());
-			return "/pizze/add";
+			return "/ingredienti/edit";
 		}
-		// se non ci sono errori salva i dati e torna alla lista
-		service.create(formPizza);
-		return "redirect:/pizze";
+		ingredienteService.create(formIngrediente);
+		return "redirect:/ingredienti";
 	}
 	
 	@GetMapping("/edit/{id}")
 	public String edit(@PathVariable("id") Integer id, Model model) {
 		model.addAttribute("edit", true);
-		model.addAttribute("pizza", service.getById(id));
-		model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());
-		return "/pizze/add";
+		model.addAttribute("ingrediente", ingredienteService.getById(id));
+		return "/ingredienti/edit";
 	}
 	
 	@PostMapping("/edit/{id}")
-	public String doEdit(@Valid @ModelAttribute("pizza") Pizza formPizza, 
+	public String doEdit (@Valid @ModelAttribute("ingrediente") Ingrediente formIngrediente, 
 			BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("edit", true);
-			model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());
-			return "/pizze/add";
+//			model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());
+			return "/ingredienti/edit";
 		}
-		service.update(formPizza);
-		redirectAttributes.addFlashAttribute("successMessage", "Pizza edited!");
-		return "redirect:/pizze";
+		ingredienteService.create(formIngrediente);
+		redirectAttributes.addFlashAttribute("successMessage", "Ingrediente modificato!");
+		return "redirect:/ingredienti";
 	}
 	
 	@GetMapping("/delete/{id}")
 	public String doDelete(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
-		if(service.getById(id) == null) {
-			// ritorno error message
+		if(ingredienteService.getById(id) == null) {
 		}
-		service.deleteById(id);
-		redirectAttributes.addFlashAttribute("successMessage", "Pizza eliminata!");
-		return "redirect:/pizze";
+		ingredienteService.deleteById(id);
+		redirectAttributes.addFlashAttribute("successMessage", "Ingrediente eliminato!");
+		return "redirect:/ingredienti";
 	}
 
+
+
+
+	
 
 }

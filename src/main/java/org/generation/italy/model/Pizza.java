@@ -1,5 +1,6 @@
 package org.generation.italy.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //import javax.persistence.Column;
@@ -72,7 +73,14 @@ public class Pizza {
 		this.synopsis = synopsis;
 	}
 	
-	//avrei dovuto mettere tutti i nomi in ita, da sistemare
+	public String ingredientiToString() {
+		List<String> ingredientiString = new ArrayList<>();
+		for(Ingrediente i : ingredienti) {
+			ingredientiString.add(i.getName());
+		}
+		return String.join(", ", ingredientiString);
+	}
+	
 	
 	
 

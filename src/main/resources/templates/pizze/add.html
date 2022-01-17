@@ -49,6 +49,8 @@
 								</div>
 							</div>
 						</div>
+				<hr />
+
 						<!-- ingredienti -->
 						<div class="col-4">
 							<h4>Ingredienti</h4>
@@ -57,10 +59,20 @@
 									th:value="${ingr.id}" th:field="*{ingredienti}">
 								<label class="form-check-label" th:for="|ingrediente_${ingr.id}|"
 									th:text="${ingr.name}"></label> <!-- name? -->
+									
 							</div>
+
 						</div>
+						<!-- nb così è fuori da col-4, 1 su ed è dentro -->
+						<div class="mb-3">
+							<a class="btn btn-primary" th:href="@{/ingredienti}"><i class="fas fa-pizza-slice"></i> Personalizza ingredienti</a>
+						</div>
+					</div>
+				</div>
 		</form>
+		</div>
 	</div>
+
 	<div th:replace="fragments/resources :: scripts"></div>
 </body>
 

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<div th:replace="fragments/resources :: headTags"></div>
+		<title>Ingredienti</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Ingredienti</h1 >
+			<hr/>
+			<!-- take out if i can't make it work//optional searchbar-->
+			<div class="input-group">
+				<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Cerca" aria-label="Search">
+			    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+			</div>
+			<table class="table" th:if="${list2.size() > 0}">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item : ${list2}">
+						<td th:text="${item.name}"></td>
+						<td>
+							<a class="btn btn-primary" th:href="@{|/ingredienti/edit/${item.id}|}"><i class="fas fa-edit"></i></a>
+							<a class="btn btn-primary" th:href="@{|/ingredienti/delete/${item.id}|}" onclick="return confirm('Vuoi davvero eliminare questo ingrediente?')"><i class="fas fa-trash"></i> </a>						
+						
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="alert alert-warning" role="alert" th:unless="${list2.size() > 0}">
+			  In questa lista non ci sono ingredienti 
+			</div>
+			<div class="mb-3">
+				<a class="btn btn-primary" th:href="@{/ingrediente/create}"><i class="fas fa-plus"></i> Aggiungi un ingrediente</a>
+			</div>
+		</div>
+		<div th:replace="fragments/resources :: scripts"></div>
+
+	</body>
+</html>
