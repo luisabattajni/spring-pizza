@@ -11,7 +11,7 @@
 		<h1>Personalizza ingredienti</h1>
 		<hr />
 		<form id="ingrediente-form" th:object="${ingrediente}"
-			th:action="${edit} ? @{/ingrediente/edit/{id}(id=${ingrediente.id})} : @{/pizze/create}" method="post">
+			th:action="${edit} ? @{/ingredienti/edit/{id}(id=${ingrediente.id})} : @{/ingredienti/create}" method="post">
 			<ul>
 				<li th:each="err : ${#fields.allErrors()}" th:text="${err}" class="text-danger"></li>
 			</ul>

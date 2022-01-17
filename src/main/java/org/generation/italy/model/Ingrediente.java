@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 //import javax.persistence.Table;
 
@@ -17,6 +18,7 @@ public class Ingrediente {
 	private Integer id; 
 	
 	@NotNull
+	@NotEmpty(message="Il campo nome non può essere vuoto")
 	private String name;
 
 	public Integer getId() {

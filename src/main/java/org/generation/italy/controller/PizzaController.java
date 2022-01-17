@@ -60,7 +60,6 @@ public class PizzaController {
 	public String doCreate(@Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
 
 		// se ci sono errori torni alla form
-		//attenzione all'html che ho chiamato add
 		if(bindingResult.hasErrors()) {
 			model.addAttribute("edit", false);
 			model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());

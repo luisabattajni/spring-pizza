@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.generation.italy.model.Ingrediente;
-import org.generation.italy.model.Pizza;
+//import org.generation.italy.model.Pizza;
 import org.generation.italy.service.IngredienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,12 +41,11 @@ public class IngredienteController {
 		return "/ingredienti/list2";
 	}
 	
-	//edit - add?
 	@GetMapping("/create")
 	public String create(Model model) {
 		model.addAttribute("edit", false);
 		model.addAttribute("ingrediente", new Ingrediente());
-		model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());
+//		model.addAttribute("ingredienteList", ingredienteService.findAllSortedByName());
 		return "/ingredienti/edit";
 	}
 

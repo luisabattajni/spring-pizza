@@ -8,11 +8,12 @@
 		<div class="container">
 			<h1>Ingredienti</h1 >
 			<hr/>
-			<!-- take out if i can't make it work//optional searchbar-->
-			<div class="input-group">
-				<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Cerca" aria-label="Search">
-			    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
-			</div>
+			<form th:action="@{/ingredienti}" method="get">
+				<div class="input-group">
+					<input name="keyword" th:value="${keyword}" class="form-control" type="search" placeholder="Cerca" aria-label="Search">
+				    <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i></button>
+				</div>
+			</form>
 			<table class="table" th:if="${list2.size() > 0}">
 				<thead>
 					<tr>
@@ -35,7 +36,10 @@
 			  In questa lista non ci sono ingredienti 
 			</div>
 			<div class="mb-3">
-				<a class="btn btn-primary" th:href="@{/ingrediente/create}"><i class="fas fa-plus"></i> Aggiungi un ingrediente</a>
+				<a class="btn btn-primary" th:href="@{/ingredienti/create}"><i class="fas fa-plus"></i> Aggiungi un ingrediente</a>
+			</div>
+			<div class="mb-3">
+				<a class="btn btn-primary" th:href="@{/pizze}"><i class="fas fa-home"></i> Home</a>
 			</div>
 		</div>
 		<div th:replace="fragments/resources :: scripts"></div>

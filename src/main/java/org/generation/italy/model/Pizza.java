@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -23,11 +24,13 @@ public class Pizza {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id; 
 	
-	@NotNull (message="il campo nome non può essere vuoto")
+	@NotNull 
+	@NotEmpty(message="Il campo nome non può essere vuoto")
 	private String name;
 	@Lob
 	private String synopsis;
-	@NotNull (message="il campo prezzo non può essere vuoto")
+	@NotNull 
+	@NotEmpty(message="Il campo prezzo non può essere vuoto")
 	private String price; //integer? double? string per $ etc?
 
 	@ManyToMany
